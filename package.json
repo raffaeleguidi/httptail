@@ -1,7 +1,11 @@
 {
   "name": "httptail",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": false,
+  "repository" :  {
+    "type" : "git",
+    "url" : "https://github.com/npm/npm.git"
+  },
   "scripts": {
     "start": "node httptail.js"
   },
