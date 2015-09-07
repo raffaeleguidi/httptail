@@ -3,11 +3,9 @@
 
 Installation (not published in NPM, yet):
 
-  git clone https://github.com/raffaeleguidi/httptail
-  
-  cd httptail
-  
-  npm install npm -g install .
+* git clone https://github.com/raffaeleguidi/httptail
+* cd httptail
+* npm install npm -g install .
   
 
 Usage: httptail url [options]
