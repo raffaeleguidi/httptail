@@ -10,5 +10,10 @@
     "logagent-js": "*",
     "request": "*",
     "byline": "*"
-  }
+  },
+  "bin": {
+    "httptail": "httptail.js"
+  },
+  "main" : "httptail.js",
+  "preferGlobal": "true"
 }
