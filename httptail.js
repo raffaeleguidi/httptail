@@ -44,39 +44,51 @@ if (!program.args.length)
 
     
 function go(start) {
-        var thisChunkSize;
-        var stop = false;
-        options.headers = {
-            "Range": "bytes=" + (start) + "-"
+    var thisChunkSize;
+    var stop = false;
+    options.headers = {
+        "Range": "bytes=" + (start) + "-"
+    }
+    request
+        .get(options)
+        .on('response', function(response) {
+            if (response.statusCode != 206) {
+            //if (response.statusCode == 416) {
+                stop = true;
+                this.emit("end");
+
+
+                setTimeout(function(){
+                    go(start);
+                }, 2000)
+
+                return;
+            }
+            thisChunkSize = parseInt(response.headers['content-length']);
+        })
+        .pipe(byline.createStream())
+        .on('data', function(chunk){
+            //console.log("line %d: %s", n++, chunk);
+            console.log(chunk.toString());
+        })
+        .on('end', function(chunk){
+            if (!stop && t) {
+                setTimeout(function(){
+                    go(start + thisChunkSize);
+                }, p)
+            }
+        })
+}
+
+function parserExample() {
+    // https://github.com/sematext/logagent-js/blob/master/patterns.yml
+    var Logparser = require('logagent-js')
+    var lp = new Logparser('./patterns.yml')
+    lp.parseLine('log message', 'source name', function (err, data) {
+        if(err) {
+          console.log('line did not match with any pattern')
         }
-        request
-            .get(options)
-            .on('response', function(response) {
-                if (response.statusCode != 206) {
-                //if (response.statusCode == 416) {
-                    stop = true;
-                    this.emit("end");
-                    
-
-                    setTimeout(function(){
-                        go(start);
-                    }, 2000)
-
-                    return;
-                }
-                thisChunkSize = parseInt(response.headers['content-length']);
-            })
-            .pipe(byline.createStream())
-            .on('data', function(chunk){
-                //console.log("line %d: %s", n++, chunk);
-                console.log(chunk.toString());
-            })
-            .on('end', function(chunk){
-                if (!stop && t) {
-                    setTimeout(function(){
-                        go(start + thisChunkSize);
-                    }, p)
-                } 
-            })
+        console.log(JSON.stringify(data))
+    })
 }
 
