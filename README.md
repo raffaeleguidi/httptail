@@ -1,6 +1,6 @@
 # httptail
 
-httptail is a simple tool that lets tail a file, or multiple files at the same moment, over http. Just expose your logs on an apache (or whatever) VirtualDirectory and enjoy an "heroku logs"-like experience. The tool can also be used as a nodejs library; instead of logging to the console it will give you a callback(index, url, chunk) for every "tailed" file.
+httptail is a simple tool that lets tail a file, or multiple files at the same moment, over http. Just expose your logs on an apache (or whatever) VirtualDirectory and enjoy an "heroku logs"-like experience. The tool can also be used as a nodejs library; instead of logging to the console it will give you a callback(index, url, chunk) for every "tailed" file like in the following example:
 
         var lines = 100;
         var pause = 1000;
@@ -13,12 +13,15 @@ httptail is a simple tool that lets tail a file, or multiple files at the same m
             });
         }
 
+## Installation
 
 npm install httptail -g
 
-Usage: httptail url [otherUrls...] [options]
+## Usage
 
-  Options:
+        httptail url [otherUrls...] [options]
+
+        Options:
   
        -h, --help            output usage information
        -V, --version         output the version number
@@ -27,6 +30,8 @@ Usage: httptail url [otherUrls...] [options]
        -p, --pause [msecs]   Pause in msecs between pollings
        -v, --verbose         Use #number instead of url in output
    
+## Development
+
 To build and install from source locally:
 
 * git clone https://github.com/raffaeleguidi/httptail
