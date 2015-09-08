@@ -9,11 +9,11 @@ program
     .option("-n, --number [lines]", "Number of lines (estimated, 100 chars each)", 100)
     .option("-t, --tail", "Follow the tail of the file")
     .option("-p, --pause [msecs]", "Pause in msecs between pollings", 1000)
-    .option("-v, --verbose", "Use #number instead of url in output")
+    .option("-v, --verbose [level]", "low: print #number before the line; high: print url", "no")
     .action(function(url){
         n = parseInt(this.number);
         t = typeof this.tail != "undefined";
-        v = typeof this.verbose != "undefined";
+        v = this.verbose;
         p = this.pause;
 
         console.log("url: %s", url);
