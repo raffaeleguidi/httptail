@@ -23,12 +23,12 @@ httptail is a simple tool that lets tail a file, or multiple files at the same m
 
         Options:
   
-       -h, --help            output usage information
-       -V, --version         output the version number
-       -n, --number [lines]  Number of lines (estimated, 100 chars each)
-       -t, --tail            Follow the tail of the file
-       -p, --pause [msecs]   Pause in msecs between pollings
-       -v, --verbose         Use #number instead of url in output
+       -h, --help             output usage information
+       -V, --version          output the version number
+       -n, --number [lines]   Number of lines (estimated, 100 chars each)
+       -t, --tail             Follow the tail of the file
+       -p, --pause [msecs]    Pause in msecs between pollings
+       -v, --verbose [level]  low: print #number before the line; high: print url
    
 ## Development
 
