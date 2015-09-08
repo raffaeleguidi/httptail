@@ -15,7 +15,7 @@ httptail is a simple tool that lets tail a file, or multiple files at the same m
 
 ## Installation
 
-npm install httptail -g
+        npm install httptail -g
 
 ## Usage
 
