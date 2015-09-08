@@ -30,6 +30,10 @@ program
 if (!program.args.length)
     program.outputHelp();
 
+/*
+
+"logagent-js": "*",
+
 function parserExample() {
     // https://github.com/sematext/logagent-js/blob/master/patterns.yml
     var Logparser = require('logagent-js')
@@ -42,3 +46,4 @@ function parserExample() {
     })
 }
 
+*/
