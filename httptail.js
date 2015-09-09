@@ -4,7 +4,7 @@ var program = require('commander');
 var HttpTailer = require('./lib/HttpTailer.js').HttpTailer;
 
 program
-    .version('0.0.3')
+    .version('0.0.6')
     .arguments('url [otherUrls...]', 'Url to tail')
     .option("-n, --number [lines]", "Number of lines (estimated, 100 chars each)", 100)
     .option("-t, --tail", "Follow the tail of the file")

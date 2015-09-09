@@ -1,17 +1,37 @@
 # httptail
 
-httptail is a simple tool that lets tail a file, or multiple files at the same moment, over http. Just expose your logs on an apache (or whatever) VirtualDirectory and enjoy an "heroku logs"-like experience. The tool can also be used as a nodejs library; instead of logging to the console it will give you a callback(index, url, chunk) for every "tailed" file like in the following example:
+httptail is a simple tool that lets tail a file, or multiple files at the same moment, over http. Just expose your logs on an apache (or whatever) VirtualDirectory and enjoy an "heroku logs"-like experience. The tool can also be used as a nodejs library; instead of logging to the console it will give you a callback(index, url, chunk) for every "tailed" file like in the following example, in which it pairs with the wonderful logstash-client:
+
+        var Logstash = require('logstash-client');
+        var HttpTailer = require('httptail/lib/HttpTailer').HttpTailer;
+
+        var logstash = new Logstash({
+          type: 'udp', // udp, tcp, memory 
+          host: 'localhost',
+          port: 9999 //13333
+        });
 
         var lines = 100;
         var pause = 1000;
         var tail = true;
-        
+        var url = [
+            "http://logs.machine.a:8003/apache/access_log",
+            "http://logs.machine.b:8003/apache/access_log",
+            "http://logs.machine.c:8003/apache/access_log",
+            "http://logs.machine.d:8003/apache/access_log"
+        ];
+
+        var count = 0;
+
         for (i in url) {
-            var tailer = new HttpTailer(url[i], i, lines, p, t);
+            var tailer = new HttpTailer(url[i], i, lines, pause, tail);
             tailer.start(function(index, url, chunk){
-                console.log(chunk.toString());
+                logstash.send("[" + url + "] " + chunk.toString(), function(){
+                    console.log("%d lines sent", (++count));
+                });
             });
         }
+
 
 ## Installation
 
