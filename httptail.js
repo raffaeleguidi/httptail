@@ -6,6 +6,7 @@ var HttpTailer = require('./lib/HttpTailer.js').HttpTailer;
 program
     .version('0.0.6')
     .arguments('url [otherUrls...]', 'Url to tail')
+    .option("-k, --insecure", "Operate even for server connections otherwise considered insecure")
     .option("-n, --number [lines]", "Number of lines (estimated, 100 chars each)", 100)
     .option("-t, --tail", "Follow the tail of the file")
     .option("-p, --pause [msecs]", "Pause in msecs between pollings", 1000)
@@ -13,6 +14,7 @@ program
     .action(function(url){
         n = parseInt(this.number);
         t = typeof this.tail != "undefined";
+        k = typeof this.tail != "undefined";
         v = this.verbose;
         p = this.pause;
 
@@ -21,6 +23,9 @@ program
         console.log("follow: %s", t);
 
         for (i in url) {
+            if (k) { 
+                process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+            }
             var tailer = new HttpTailer(url[i], i, n, p, t, v);
             tailer.start();
         }
